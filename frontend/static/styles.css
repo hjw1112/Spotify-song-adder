@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+}
+
+#title {
+    font-size: 2.5rem;
+    margin-top: 50px;
+    color: #4CAF50; /* A green color */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#powered_by {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #555;
+    font-style: italic;
+}
