@@ -7,8 +7,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <img src="{{ url_for('static', filename='image/spotify_logo.png') }}" alt="Spotify Logo">
     <h1 id="title">Spotify Song Adder</h1>
     <p id="powered_by">Powered by OpenAI</p>
+
+    <p>Please enter song title and artist name</p>
+    <form> 
+        <label for="image-upload">Select an image:</label> 
+        <input type="file" id="image_upload" accept="image/*">
+    </form> 
+    <form> 
+        <label for="text">Enter text:</label>
+        <input type="text" id="text_input">
+    </form> 
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
