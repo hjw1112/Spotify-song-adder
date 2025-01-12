@@ -1,5 +1,5 @@
-from services.langchain_service import analyse_text
-from backend.services.spotify_service import add_song_to_playlist
+from ..services.langchain_service import analyse_text
+#from ..services.langchain_service import spotify stuff
 
 from flask import Blueprint, request, jsonify, render_template
 

@@ -4,7 +4,8 @@ from PIL import Image
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
-from ..config.config import Config
+from backend.config.config import Config
+
 
 # #api key handling
 # base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # go one level up
