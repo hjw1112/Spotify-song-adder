@@ -4,7 +4,7 @@ from PIL import Image
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
-from backend.config.config import Config
+from ..config.config import Config
 
 
 # #api key handling
@@ -25,18 +25,23 @@ def analyse_text(text):
     llm = ChatOpenAI(model="gpt-4o-mini", api_key=Config.OPENAI_API_KEY)
     prompt = PromptTemplate(
         input_variables=["text"], 
-        template="Analyze the following text or image of list of songs and search on internet to get title, artist name and release year of each song. You should extract text and analyse if image is entered. Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title, artistname, or release year.: {text}"
+        template="Analyze the following text or image of list of songs and search on internet to get title and artist name of each song. Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}"
     )
     chain = prompt | llm
     response = chain.invoke(text) # getting response form ai
     
     # parsing response to get 2d array
     content = response.content
-    print(response)
+
     try:
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
-        print(array)
+        # for test
+        print(array, "dkdkdkdkdkdkkdkdkdkdk")
+        return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []
         return "error parsing response: {e}"
+
+#for test
+# analyse_text("Stars by hew hope club")

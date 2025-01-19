@@ -7,19 +7,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <img src="{{ url_for('static', filename='image/spotify_logo.png') }}" alt="Spotify Logo">
-    <h1 id="title">Spotify Song Adder</h1>
+    <div id="headerdiv">
+        <img src="{{ url_for('static', filename='image/spotify_logo.png') }}" alt="Spotify Logo" id="spotify_logo" class="header">
+        <h1 id="title" class="header">Spotify Song Adder</h1>
+    </div>
     <p id="powered_by">Powered by OpenAI</p>
+    <p id="titleandname">Please enter song title and artist name</p>
 
-    <p>Please enter song title and artist name</p>
-    <form> 
+    <div id="imgortxt">
+        <label class="imgortxt_content">
+          <input type="radio" name="imgortxt" value="txt"> <span>enter text</span>
+        </label>
+        <label class="imgortxt_content">
+          <input type="radio" name="imgortxt" value="img"> <span>extract text from image</span>
+        </label>
+        <button onclick="start()" id="initbutton">press to enter data</button>
+    </div>
+
+    <div class="inputdiv" id="imginput">
         <label for="image-upload">Select an image:</label> 
-        <input type="file" id="image_upload" accept="image/*">
-    </form> 
-    <form> 
+        <input type="file" id="image_upload" accept="image/*" name="image">
+    </div>
+    
+    <div class="inputdiv" id="txtinput">
         <label for="text">Enter text:</label>
-        <input type="text" id="text_input">
-    </form> 
+        <input type="text" id="text_input" name="text"> 
+    </div>
+    <button id="ConfirmButton">Submit</button>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

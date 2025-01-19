@@ -10,13 +10,69 @@ body {
 #title {
     font-size: 2.5rem;
     margin-top: 50px;
-    color: #4CAF50;
+    color: #4caf50;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+#spotify_logo {
+    width: 70px;
+    aspect-ratio: 1, 1;
+    margin: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+}
+
+#headerdiv {
+    display: flex;
+    align-items: center;
+    margin-inline: auto;
+    max-width: fit-content;
+    margin-inline: auto;
+}
+
 #powered_by {
-    font-size: 1.2rem;
+    font-size: 15pt;
     margin-top: 10px;
     color: #555;
     font-style: italic;
+}
+
+#titleandname {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #000000;
+    font-style: bold;
+}
+
+.inputdiv {
+    width: auto;
+    height: auto;
+    align-items: left;
+    display: none;
+}
+#ConfirmButton {
+    display: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+#imgortxt {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.imgortxt_content {
+    display: inline;
+}
+
+#initbutton {
+    width: 130px;
+    height: auto;
+    align-self: center;
+    margin-top: 10px;
 }
