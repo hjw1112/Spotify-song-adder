@@ -1,5 +1,8 @@
-from flask import Flask, render_template
+from flask import Flask, session, redirect, url_for, render_template
 from backend.routes.route import routes
+from dotenv import load_dotenv
+import os
+
 
 # create the flask app
 app = Flask(
@@ -9,12 +12,14 @@ app = Flask(
 )
 
 app.register_blueprint(routes)
+app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
 
-# @app.route('/')
-# def index():
-#     #render the index.html file
-#     return render_template('index.html')
+@app.route('/')
+def landing():
+    if "token_info" in session:
+        return redirect(url_for("routes.index"))
+    return render_template("login.html")
 
 if __name__ == '__main__':
     app.run(debug=True)

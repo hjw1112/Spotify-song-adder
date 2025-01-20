@@ -25,7 +25,7 @@ def analyse_text(text):
     llm = ChatOpenAI(model="gpt-4o-mini", api_key=Config.OPENAI_API_KEY)
     prompt = PromptTemplate(
         input_variables=["text"], 
-        template="Analyze the following text or image of list of songs and search on internet to get title and artist name of each song. Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}"
+        template="Analyze the following text or image of list of songs and search on internet to get title and artist name of each song. Please ensure that the song name and artist name is valid(Check if the artist actually released the song.). Condiser the possibility of typo and text errors(if the song and artist exist). Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}"
     )
     chain = prompt | llm
     response = chain.invoke(text) # getting response form ai
@@ -37,11 +37,31 @@ def analyse_text(text):
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
         # for test
-        print(array, "dkdkdkdkdkdkkdkdkdkdk")
+        print(array, "analysed")
         return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []
         return "error parsing response: {e}"
 
-#for test
-# analyse_text("Stars by hew hope club")
+def reanalyse_text(text, response):
+    llm = ChatOpenAI(model="gpt-4o-mini", api_key=Config.OPENAI_API_KEY)
+    prompt = PromptTemplate(
+        input_variables=["text"], 
+        template="This is your previous prompt and text input: [Analyze the following text of list of songs and search on internet to get title and artist name of each song. Please ensure that the song name and artist name is valid(Check if the artist actually released the song.). Condiser the possibility of typo and text errors(if the song and artist exist). Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}] and this is your response:[{response}] your response was wrong so song and artist name wasn't correct. please retry analysing."
+    )
+    chain = prompt | llm
+    response = chain.invoke(text, response) # getting response form ai
+    
+    # parsing response to get 2d array
+    content = response.content
+
+    try:
+        parsed_content = content.strip('```json\n').strip('```')
+        array = json.loads(parsed_content)
+        # for test
+        # print(array, "reanalysed")
+        return array
+    except (json.JSONDecodeError, AttributeError) as e:
+        array = []
+        return "error parsing response: {e}"
+

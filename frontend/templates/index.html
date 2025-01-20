@@ -12,6 +12,9 @@
         <h1 id="title" class="header">Spotify Song Adder</h1>
     </div>
     <p id="powered_by">Powered by OpenAI</p>
+    
+    <p>Logged in as: <strong>{{ username }}</strong></p>
+
     <p id="titleandname">Please enter song title and artist name</p>
 
     <div id="imgortxt">
@@ -34,6 +37,17 @@
         <input type="text" id="text_input" name="text"> 
     </div>
     <button id="ConfirmButton">Submit</button>
+
+    <iframe
+        title="Spotify Embed: Dynamic Playlist"
+        src="https://open.spotify.com/embed/playlist/{{ playlist_id }}?utm_source=generator&theme=0"
+        width="100%"
+        height="380"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        id="iframe">
+    </iframe>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

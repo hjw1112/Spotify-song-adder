@@ -46,37 +46,3 @@ body {
     color: #000000;
     font-style: bold;
 }
-
-.inputdiv {
-    width: auto;
-    height: auto;
-    align-items: left;
-    display: none;
-}
-#ConfirmButton {
-    display: none;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-}
-
-#imgortxt {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 10px;
-}
-
-.imgortxt_content {
-    display: inline;
-}
-
-#initbutton {
-    width: 130px;
-    height: auto;
-    align-self: center;
-    margin-top: 10px;
-}
-
-#iframe {
-    display: none;
-}

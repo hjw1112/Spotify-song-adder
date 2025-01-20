@@ -34,33 +34,42 @@ function start() {
 // function to handle text upload
 
 document.getElementById('ConfirmButton').addEventListener('click', async () => {
-    if (selected_type == "txt") {
-        const text = document.getElementById('text_input').value;
-        const response = await fetch('/process', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text })
-        });
+    try {
+        let response;
+        if (selected_type === "txt") {
+            const text = document.getElementById('text_input').value;
+            response = await fetch('/process', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+        } else if (selected_type === "img") {
+            const fileInput = document.getElementById('image_upload');
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+
+            response = await fetch('/process', {
+                method: 'POST',
+                body: formData
+            });
+        }
+
+        if (!response.ok) {
+            // Handle HTTP errors (e.g., 404, 500)
+            const errorText = await response.text(); // Get the HTML error page as text
+            console.error(`Error response: ${errorText}`);
+            throw new Error(`Request failed with status ${response.status}`);
+        }
 
         const result = await response.json();
-        console.log(result);
-    } else {
-        const fileInput = document.getElementById('image_upload');
-        const formData = new FormData();
-        formData.append('image', fileInput.files[0]);
-
-        const response = await fetch('/process', {
-            method: 'POST',
-            body: formData
-        });
-
-        const result = await response.json();
-        console.log(result);
+        if (result.error) {
+            alert(`Error: ${result.error}`);
+        } else if (result.playlist_id) {
+            document.getElementById("iframe").src = `https://open.spotify.com/embed/playlist/${result.playlist_id}`;
+            document.getElementById("iframe").style.display = "block";
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        alert(`An error occurred: ${error.message}`);
     }
-});
-
-// function to handle image upload
-
-    
-        
-    
+})
