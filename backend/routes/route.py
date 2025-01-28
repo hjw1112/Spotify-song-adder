@@ -26,7 +26,7 @@ def callback():
     sp_oauth = get_spotify_oauth()
     code = request.args.get("code")
     if not code:
-        return "Authorization failed", 400
+        return "Authorization failed", 100
 
     #fetch token info
     token_info = sp_oauth.get_access_token(code)
@@ -66,11 +66,11 @@ def analyse():
         if request.json and 'text' in request.json:
             text = request.json['text']
             if not text.strip():
-                return jsonify({"error": "Text input cannot be empty"}), 400
+                return jsonify({"error": "Text input cannot be empty"}), 200
 
             song_array = analyse_text(text)  # Analyse the text
             if not song_array or len(song_array) == 0:
-                return jsonify({"error": "No valid songs found in the text"}), 400
+                return jsonify({"error": "No valid songs found in the text"}), 300
 
         #handle image input
         elif 'image' in request.files:
@@ -87,24 +87,24 @@ def analyse():
             extracted_text = extract_text_from_img(file_path)
             song_array = analyse_text(extracted_text)
             if not song_array or len(song_array) == 0:
-                return jsonify({"error": "No valid songs found in the image"}), 400
+                return jsonify({"error": "No valid songs found in the image"}), 500
 
         #invalid input
         else:
-            return jsonify({"error": "Invalid input. Provide either 'text' or an image."}), 400
+            return jsonify({"error": "Invalid input. Provide either 'text' or an image."}), 600
 
         #create spotify playlist and add songs
         user_id = get_logged_in_user_id()
         if not user_id:
-            return jsonify({"error": "User not logged in"}), 403
+            return jsonify({"error": "User not logged in"}), 700
 
         playlist_id = create_playlist(user_id)
         if not playlist_id:
-            return jsonify({"error": "Failed to create playlist"}), 500
+            return jsonify({"error": "Failed to create playlist"}), 800
 
         uri_list = search_track(song_array)
         if not uri_list or len(uri_list) == 0:
-            return jsonify({"error": "No tracks found for the given songs"}), 400
+            return jsonify({"error": "No tracks found for the given songs"}), 900
 
         add_song_to_playlist(uri_list, playlist_id)
 
@@ -113,6 +113,6 @@ def analyse():
 
     except Exception as e:
         print(f"Error in /process route: {e}")
-        return jsonify({"error": "Internal Server Error"}), 500
+        return jsonify({"error": "Internal Server Error"}), 110
 
 

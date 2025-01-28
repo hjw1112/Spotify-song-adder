@@ -25,7 +25,7 @@ def analyse_text(text):
     llm = ChatOpenAI(model="gpt-4o-mini", api_key=Config.OPENAI_API_KEY)
     prompt = PromptTemplate(
         input_variables=["text"], 
-        template="Analyze the following text or image of list of songs and search on internet to get title and artist name of each song. Please ensure that the song name and artist name is valid(Check if the artist actually released the song.). Condiser the possibility of typo and text errors(if the song and artist exist). Output the information you got in 2D array in json form without any other response. Please don't make up informations and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}"
+        template="Analyze the following text or image of list of songs and search on internet to get title and artist name of each song. Please ensure that the song name and artist name is valid(Check if the artist actually released the song.). Condiser the possibility of typo and text errors(if the song and artist exist). Output the information you got in 2D array in json form without any other response(example: {{'title': 'Shape of You', 'artist': 'Ed Sheeran'}}). Please don't make up informations or hallucinate and DO NOT put anything in the array if you don't know title or artist name. here is the text: {text}"
     )
     chain = prompt | llm
     response = chain.invoke(text) # getting response form ai
@@ -59,7 +59,7 @@ def reanalyse_text(text, response):
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
         # for test
-        # print(array, "reanalysed")
+        print(array, "reanalysed")
         return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []
