@@ -1,12 +1,15 @@
 import json
 import pytesseract 
+import os
 from PIL import Image
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from ..config.config import Config
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+tesseract_path = os.getenv("PYTESSERACT_PATH", "/usr/bin/tesseract")
+
+pytesseract.pytesseract.tesseract_cmd = tesseract_path
 
 
 # #api key handling
