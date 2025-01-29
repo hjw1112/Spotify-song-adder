@@ -23,7 +23,7 @@ def extract_text_from_img(image_path):
     image = Image.open(image_path)  # open the image using PIL
     text = pytesseract.image_to_string(image) # extract text using tesseract OCR
     #for test
-    #print(text)
+    print(text)
     return text
 
 
@@ -44,7 +44,7 @@ def analyse_text(text):
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
         # for test
-        #print(array, "analysed")
+        print(array, "analysed")
         return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []
