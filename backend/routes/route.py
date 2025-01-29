@@ -63,20 +63,27 @@ def analyse():
         song_array = None
 
         #handle text input
-        if request.json and 'text' in request.json:
-            text = request.json['text']
-            if not text.strip():
-                return jsonify({"error": "Text input cannot be empty"}), 200
+        if request.is_json:
+            try:
+                data = request.get_json()
+                if 'text' in data:
+                    text = data['text']
 
-            song_array = analyse_text(text)  # Analyse the text
-            if not song_array or len(song_array) == 0:
-                return jsonify({"error": "No valid songs found in the text"}), 300
+                text = request.json['text']
+                if not text.strip():
+                    return jsonify({"error": "Text input cannot be empty"}), 200
 
+                song_array = analyse_text(text)  # analyse the text
+                if not song_array or len(song_array) == 0:
+                    return jsonify({"error": "No valid songs found in the text"}), 300
+            except Exception as e:
+                return jsonify({"error": f"Failed to parse JSON: {str(e)}"}), 400
+            
         #handle image input
         elif 'image' in request.files:
             image = request.files['image']
-            if not image:
-                return jsonify({"error": "No image file provided"}), 400
+            if image.filename == '':
+                return jsonify({"error": "No image file provided"}), 500
 
             #save and process the uploaded image
             filename = secure_filename(image.filename)
@@ -87,24 +94,24 @@ def analyse():
             extracted_text = extract_text_from_img(file_path)
             song_array = analyse_text(extracted_text)
             if not song_array or len(song_array) == 0:
-                return jsonify({"error": "No valid songs found in the image"}), 500
+                return jsonify({"error": "No valid songs found in the image"}), 600
 
         #invalid input
         else:
-            return jsonify({"error": "Invalid input. Provide either 'text' or an image."}), 600
+            return jsonify({"error": "Invalid input. Provide either 'text' or an image."}), 700
 
         #create spotify playlist and add songs
         user_id = get_logged_in_user_id()
         if not user_id:
-            return jsonify({"error": "User not logged in"}), 700
+            return jsonify({"error": "User not logged in"}), 800
 
         playlist_id = create_playlist(user_id)
         if not playlist_id:
-            return jsonify({"error": "Failed to create playlist"}), 800
+            return jsonify({"error": "Failed to create playlist"}), 900
 
         uri_list = search_track(song_array)
         if not uri_list or len(uri_list) == 0:
-            return jsonify({"error": "No tracks found for the given songs"}), 900
+            return jsonify({"error": "No tracks found for the given songs"}), 1000
 
         add_song_to_playlist(uri_list, playlist_id)
 

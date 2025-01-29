@@ -50,7 +50,8 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
             response = await fetch('/process', {
                 method: 'POST',
                 body: formData
-            })}
+            })
+        }
         
 
         if (!response.ok) {

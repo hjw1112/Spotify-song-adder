@@ -6,6 +6,8 @@ from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from ..config.config import Config
 
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
 
 # #api key handling
 # base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # go one level up
@@ -17,7 +19,9 @@ from ..config.config import Config
 def extract_text_from_img(image_path):
     image = Image.open(image_path)  # open the image using PIL
     text = pytesseract.image_to_string(image) # extract text using tesseract OCR
-    analyse_text(text)
+    #for test
+    #print(text)
+    return text
 
 
 
@@ -37,7 +41,7 @@ def analyse_text(text):
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
         # for test
-        print(array, "analysed")
+        #print(array, "analysed")
         return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []
