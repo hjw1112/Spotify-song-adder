@@ -97,6 +97,7 @@ def analyse():
             song_array = analyse_text(extracted_text)
             if not song_array or len(song_array) == 0:
                 return jsonify({"error": "No valid songs found in the image"}), 600
+            return jsonify({"status": "success", "message": "Image uploaded successfully", "file_path": file_path}), 0
 
         #invalid input
         else:
