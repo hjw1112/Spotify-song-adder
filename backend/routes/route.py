@@ -7,7 +7,7 @@ from spotipy import Spotify
 
 routes = Blueprint('routes', __name__)
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '..', '/tmp')
+UPLOAD_FOLDER = '/tmp'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
