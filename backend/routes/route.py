@@ -89,6 +89,7 @@ def analyse():
             filename = secure_filename(image.filename)
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             image.save(file_path)
+            print("Saving file:", file_path)
 
             #extract text and analyse it
             extracted_text = extract_text_from_img(file_path)
