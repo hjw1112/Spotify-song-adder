@@ -7,7 +7,7 @@ from spotipy import Spotify
 
 routes = Blueprint('routes', __name__)
 
-UPLOAD_FOLDER = '/tmp'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'tmp')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
@@ -89,7 +89,6 @@ def analyse():
             filename = secure_filename(image.filename)
             file_path = os.path.join(UPLOAD_FOLDER, filename)
             image.save(file_path)
-            print("Saving file:", file_path)
 
             #extract text and analyse it
             extracted_text = extract_text_from_img(file_path)
