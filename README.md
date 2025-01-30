@@ -1,6 +1,6 @@
-# 🎵 **Spotify Playlist Creator**
+# 🎵 **Spotify Song Adder**
 
-Welcome to the **Spotify Playlist Creator**, a dynamic and interactive web application designed to enhance your Spotify experience. This platform allows you to effortlessly create and manage your Spotify playlists, with exciting features and future innovations in the pipeline.
+Welcome to the **Spotify Song Adder**, a dynamic and interactive web application designed to enhance your Spotify experience. This platform allows you to effortlessly create and manage your Spotify playlists, with exciting features and future innovations in the -pipeline.-
 
 ---
 
@@ -8,18 +8,19 @@ Welcome to the **Spotify Playlist Creator**, a dynamic and interactive web appli
 
 ### 🚪 **Login with Spotify**
 
-- Seamlessly authenticate and connect your Spotify account.
-- Secure integration ensures your data is safe and private.
+~~- Seamlessly authenticate and connect your Spotify account.~~
+
+~~- Secure integration ensures your data is safe and private.~~
+- Login feature was deleted due to spotify api limitations. You can use the account provided on login page.
+**(email: hackclub611@gmail.com, password: hackclub_1234)**
 
 ### 🎶 **Create and Manage Playlists**
 
-- Enter the songs you love and instantly add them to a new playlist in your Spotify account.
-- Add more tracks to your existing playlists with ease.
+- Enter the songs you love and instantly add them to a new playlist in your Spotify account instead of adding them one by one.
 
-### 📷 **Upcoming: Image Recognition Integration**
+### 📷 **Image Recognition Integration**
 
-- Use image recognition to identify songs or album art and automatically add them to your playlists.
-- Stay tuned for this cutting-edge feature!
+- Use **tesseract OCR** image recognition to identify songs or album art and automatically add them to your playlists.
 
 ---
 
@@ -30,18 +31,9 @@ Our website is built with a robust and modern tech stack:
 - **Backend:** Flask (Python)
 - **Frontend:** HTML, CSS, JavaScript
 - **Spotify API:** For secure user authentication and playlist management
-
+- **OpenAI API and Langchain:** For formatting song list into json form 
 ---
 
-## 🎨 **Future Enhancements**
-
-Here’s a sneak peek of what’s coming next:
-
-- **Image-to-Song Recognition:** Scan album art or other music-related images to identify and add tracks.
-- **Enhanced User Interface:** A sleek, intuitive design for a better user experience.
-- **Collaborative Playlists:** Invite friends to contribute songs to your playlists.
-
----
 
 ## 💡 **Contributing**
 
