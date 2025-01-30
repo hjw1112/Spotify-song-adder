@@ -1,15 +1,12 @@
 import json
 import pytesseract 
-import os
 from PIL import Image
 from langchain.prompts import PromptTemplate
 from langchain_community.chat_models import ChatOpenAI
 from langchain_openai import ChatOpenAI
 from ..config.config import Config
 
-tesseract_path = os.getenv("PYTESSERACT_PATH", "/usr/bin/tesseract")
-
-pytesseract.pytesseract.tesseract_cmd = tesseract_path
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 # #api key handling
@@ -23,7 +20,7 @@ def extract_text_from_img(image_path):
     image = Image.open(image_path)  # open the image using PIL
     text = pytesseract.image_to_string(image) # extract text using tesseract OCR
     #for test
-    print(text)
+    #print(text)
     return text
 
 
@@ -44,7 +41,7 @@ def analyse_text(text):
         parsed_content = content.strip('```json\n').strip('```')
         array = json.loads(parsed_content)
         # for test
-        print(array, "analysed")
+        #print(array, "analysed")
         return array
     except (json.JSONDecodeError, AttributeError) as e:
         array = []

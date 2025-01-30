@@ -61,7 +61,7 @@ def add_song_to_playlist(uri_list, playlist_id):
         try:
             sp.playlist_add_items(playlist_id, [track_uri])
             #for test
-            print(f"Track {track_uri} added to playlist {playlist_id}")
+            #print(f"Track {track_uri} added to playlist {playlist_id}")
             success.append(track_uri)
         except Exception as e:
             print(f"Error adding track {track_uri}: {e}")

@@ -54,9 +54,6 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
         }
         
 
-        const textResponse = await response.text();
-        console.log("Raw Response:", textResponse);
-
         if (!response.ok) {
             // handle HTTP errors (e.g., 404, 500)
             const errorText = await response.text(); // get the HTML error page as text
@@ -64,29 +61,7 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
             throw new Error(`Request failed with status ${response.status}`);
         }
 
-        if (!textResponse) {
-            throw new Error("Empty response from server");
-        }
-
-    //     let result = await response.json();
-    //     if (result.error) {
-    //         alert(`Error: ${result.error}`);
-    //     } else if (result.playlist_id) {
-    //         document.getElementById("iframe").src = `https://open.spotify.com/embed/playlist/${result.playlist_id}`;
-    //         document.getElementById("iframe").style.display = "block";
-    //     }
-    // } catch (error) {
-    //     console.error("Error:", error);
-    //     alert(`An error occurred: ${error.message}`);
-    
-        let result;
-        try {
-            result = JSON.parse(textResponse);
-        } catch (jsonError) {
-            console.error("JSON Parsing Error:", jsonError);
-            throw new Error("Invalid JSON response from server");
-        }
-
+        const result = await response.json();
         if (result.error) {
             alert(`Error: ${result.error}`);
         } else if (result.playlist_id) {
@@ -97,6 +72,5 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
         console.error("Error:", error);
         alert(`An error occurred: ${error.message}`);
     }
-    
 });
 

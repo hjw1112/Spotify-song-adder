@@ -7,10 +7,8 @@ from spotipy import Spotify
 
 routes = Blueprint('routes', __name__)
 
-
-UPLOAD_FOLDER = "/tmp"
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), '..', 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
 
@@ -97,7 +95,6 @@ def analyse():
             song_array = analyse_text(extracted_text)
             if not song_array or len(song_array) == 0:
                 return jsonify({"error": "No valid songs found in the image"}), 600
-            return jsonify({"status": "success", "message": "Image uploaded successfully", "file_path": file_path}), 0
 
         #invalid input
         else:
