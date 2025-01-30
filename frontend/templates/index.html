@@ -17,6 +17,10 @@
 
     <p id="titleandname">Please enter song title and artist name</p>
 
+    <a id="img_download" href="{{ url_for('static', filename='image/demo image.png') }}" download>
+        <p>Download demo song list image</p>
+    </a>
+
     <div id="imgortxt">
         <label class="imgortxt_content">
           <input type="radio" name="imgortxt" value="txt"> <span>enter text</span>
@@ -37,6 +41,8 @@
         <input type="text" id="text_input" name="text" placeholder="input text..."> 
     </div>
     <button id="ConfirmButton" class="button">Submit</button>
+
+    <div class="loader" id="loader"></div>
 
     <iframe
         title="Spotify Embed: Dynamic Playlist"

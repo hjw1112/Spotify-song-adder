@@ -5,6 +5,8 @@ document.getElementById("text_input").onkeydown = function (event) {
 };
 
 let selected_type
+const loader = document.getElementById('loader');
+const img_download = document.getElementById('img_download')
 //div visiblilty logics
 function start() {
     selected_type = document.querySelector('input[name="imgortxt"]:checked').value;
@@ -25,6 +27,7 @@ function start() {
             img.style.display = "block";
             break;
     }
+    loader.style.display = 'none';
 }
 
 
@@ -35,6 +38,7 @@ function start() {
 let response;
 document.getElementById('ConfirmButton').addEventListener('click', async () => {
     try {
+        loader.style.display = 'block';
         if (selected_type === "txt") {
         const text = document.getElementById('text_input').value;
         response = await fetch('/process', {
@@ -65,6 +69,7 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
         if (result.error) {
             alert(`Error: ${result.error}`);
         } else if (result.playlist_id) {
+            loader.style.display = "none"
             document.getElementById("iframe").src = `https://open.spotify.com/embed/playlist/${result.playlist_id}`;
             document.getElementById("iframe").style.display = "block";
         }
@@ -73,4 +78,7 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
         alert(`An error occurred: ${error.message}`);
     }
 });
+
+
+
 
