@@ -26,3 +26,6 @@ if __name__ == '__main__':
 
 
 app.run("0.0.0.0")
+
+
+#ngrok http --url=lobster-alert-cleanly.ngrok-free.app 5000
