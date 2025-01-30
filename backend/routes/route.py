@@ -17,6 +17,7 @@ def login():
     #redirect the user to Spotify's authorization page.
     sp_oauth = get_spotify_oauth()
     auth_url = sp_oauth.get_authorize_url()
+    print(auth_url)
     return redirect(auth_url)
 
 
@@ -29,7 +30,7 @@ def callback():
         return "Authorization failed", 100
 
     #fetch token info
-    token_info = sp_oauth.get_access_token(code)
+    token_info = sp_oauth.get_access_token(code, check_cache=False)
     session["token_info"] = token_info
 
     #fetch user profile

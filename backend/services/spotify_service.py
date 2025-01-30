@@ -108,7 +108,7 @@ def get_token():
     sp_oauth = get_spotify_oauth()
     code = session.get("auth_code", None)
     if code:
-        token_info = sp_oauth.get_access_token(code)
+        token_info = sp_oauth.get_access_token(code, check_cache=False)
         session["token_info"] = token_info
         return token_info
     return None

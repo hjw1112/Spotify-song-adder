@@ -31,6 +31,15 @@ function start() {
 }
 
 
+document.getElementById('text_input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        const confirmButton = document.getElementById('ConfirmButton');
+        if (confirmButton) {
+            confirmButton.click();
+        }
+    }
+});
 
 // //AJAX
 
@@ -70,6 +79,7 @@ document.getElementById('ConfirmButton').addEventListener('click', async () => {
             alert(`Error: ${result.error}`);
         } else if (result.playlist_id) {
             loader.style.display = "none"
+            console.log(result.playlist_id)
             document.getElementById("iframe").src = `https://open.spotify.com/embed/playlist/${result.playlist_id}`;
             document.getElementById("iframe").style.display = "block";
         }
